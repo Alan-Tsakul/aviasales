@@ -1,0 +1,19 @@
+@import '../../index.scss';
+
+.ticket-flight-info {
+  &__label {
+    color: $grey-color;
+    padding-top: 8px;
+    margin: 0;
+  }
+
+  &__value {
+    font-size: 14px;
+    padding-top: 5px;
+    margin: 0;
+  }
+  
+  &__block:nth-child(3) {
+    flex-basis: 33%;
+  }
+}

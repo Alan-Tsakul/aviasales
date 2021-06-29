@@ -1,0 +1,22 @@
+@import '../../index.scss';
+
+.ticket{
+    &__card{
+        height: 184px;
+        @extend %main-font;
+        @extend %main-interface;
+        margin-top: 20px;
+    };
+    &__header{
+       display: flex;
+       justify-content: space-between;
+       font-size: 24px;
+       color: $blue-color;
+    }
+    &__logo{
+        margin-right: 50px;
+    }
+    &__body{
+        margin-top: 10px;
+    }
+}

@@ -1,0 +1,49 @@
+@import '../../index';
+.app {
+  & {
+    background-color: #f3f7fa;
+    height: 1350px;
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__container {
+    display: flex;
+    max-height: 80%;
+  }
+
+  &__content {
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+}
+
+.filters-list {
+  &{
+    height: 252px;
+    width: 232px;
+    @extend %main-interface;
+  }
+
+  &__title {
+    @extend %main-font;
+    color: $black-text-color;
+    margin-bottom: 0px;
+  }
+} 
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+
