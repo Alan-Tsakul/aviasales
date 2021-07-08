@@ -22,6 +22,12 @@ $font-style: 'OpenSans', sans-serif;
   font-size: 12px;
 }
 
+@media (max-width: 400px) {
+  %main-font {
+    font-size: 8px;
+  }
+  }
+
 %main-interface {
   background-color: $primary-color;
   border-radius: 5px;

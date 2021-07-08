@@ -2,7 +2,6 @@
 
 .ticket{
     &__card{
-        height: 184px;
         @extend %main-font;
         @extend %main-interface;
         margin-top: 20px;
