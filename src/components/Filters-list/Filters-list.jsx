@@ -5,12 +5,12 @@ import * as actions from '../../actions/filter-actions';
 import styles from './Filters-list.module.scss';
 
 const FiltersList = ({ checked, ALL_TRANSFERS, NO_TRANSFERS, ONE_TRANSFER, TWO_TRANSFERS, THREE_TRANSFERS }) => {
-  const copy = Object.values(checked.filter, (checked.filter.checkboxid1 = undefined));//eslint-disable-line
+  const copy = Object.values(checked.filter, (checked.filter.all = undefined));//eslint-disable-line
   const filtered = copy.filter((elem) => elem === true);
   if (filtered.length >= 4) {
-    checked.filter.checkboxid1 = true;//eslint-disable-line
+    checked.filter.all = true;//eslint-disable-line
   } else if (filtered.length < 4) {
-    checked.filter.checkboxid1 = false;//eslint-disable-line
+    checked.filter.all = false;//eslint-disable-line
   }
 
   return (
@@ -21,7 +21,7 @@ const FiltersList = ({ checked, ALL_TRANSFERS, NO_TRANSFERS, ONE_TRANSFER, TWO_T
             type="checkbox"
             className={styles.myinput}
             onChange={ALL_TRANSFERS}
-            checked={checked.filter.checkboxid1}
+            checked={checked.filter.all}
           />{' '}
           &nbsp; Все
         </label>
@@ -32,7 +32,7 @@ const FiltersList = ({ checked, ALL_TRANSFERS, NO_TRANSFERS, ONE_TRANSFER, TWO_T
             type="checkbox"
             className={styles.myinput}
             onChange={NO_TRANSFERS}
-            checked={checked.filter.checkboxid2}
+            checked={checked.filter.noOne}
           />{' '}
           &nbsp; Без пересадок
         </label>
@@ -43,7 +43,7 @@ const FiltersList = ({ checked, ALL_TRANSFERS, NO_TRANSFERS, ONE_TRANSFER, TWO_T
             type="checkbox"
             className={styles.myinput}
             onChange={ONE_TRANSFER}
-            checked={checked.filter.checkboxid3}
+            checked={checked.filter.onlyOne}
           />{' '}
           &nbsp; 1 пересадка
         </label>
@@ -54,7 +54,7 @@ const FiltersList = ({ checked, ALL_TRANSFERS, NO_TRANSFERS, ONE_TRANSFER, TWO_T
             type="checkbox"
             className={styles.myinput}
             onChange={TWO_TRANSFERS}
-            checked={checked.filter.checkboxid4}
+            checked={checked.filter.onlyTwo}
           />{' '}
           &nbsp; 2 пересадки
         </label>
@@ -65,7 +65,7 @@ const FiltersList = ({ checked, ALL_TRANSFERS, NO_TRANSFERS, ONE_TRANSFER, TWO_T
             type="checkbox"
             className={styles.myinput}
             onChange={THREE_TRANSFERS}
-            checked={checked.filter.checkboxid5}
+            checked={checked.filter.onlyThree}
           />{' '}
           &nbsp; 3 пересадки
         </label>
@@ -93,7 +93,7 @@ FiltersList.defaultProps = {
 };
 
 
-const mapStateToProps = (state) => {//eslint-disable-line
+function mapStateToProps (state) {
   return {
     checked: state,
   };

@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import styles from './Ticket-flight-info-item.module.scss';
 
 const TicketFlightInfoItem = ({ origin, destination, date, duration, stops }) => {
-  const seconds = moment(date).unix();
-  const allSeconds = seconds + duration * 60;
-  const timeDeparture = moment.unix(allSeconds).utc().format('hh:mm');
-  const durationFlight = moment
-    .unix(duration * 60)
-    .utc()
-    .format('hh:mm');
+  const formattedDate = new Date(date);
+  const seconds = formattedDate.getTime();
+  const allSeconds = seconds + duration * 6 * 1000;
+  const timeDeparture = new Date(allSeconds).toISOString().substring(11, 16);
+  const timeArrive = date.substring(11, 16);
+  const minutes = Math.floor(duration % 60).toString();
+  const hours = Math.floor((duration / 60) % 60).toString();
+  const durationFlight = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
 
   let transfers;
   if (stops.length === 0) {
@@ -33,7 +33,7 @@ const TicketFlightInfoItem = ({ origin, destination, date, duration, stops }) =>
           {origin} - {destination}
         </p>
         <p className={styles['ticket-flight-info__value']}>
-          {date.substring(11, 16)}-{timeDeparture}
+          {timeArrive} - {timeDeparture}
         </p>
       </div>
       <div className={styles['ticket-flight-info__block-2']}>
@@ -53,7 +53,7 @@ TicketFlightInfoItem.propTypes = {
   destination: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   duration: PropTypes.number.isRequired,
-  stops: PropTypes.instanceOf(Array).isRequired
+  stops: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default TicketFlightInfoItem;

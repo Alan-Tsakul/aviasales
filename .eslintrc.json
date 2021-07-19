@@ -12,6 +12,7 @@
       "jest": true
     },
     "rules": {
+      "no-param-reassign": [2, { "props": false }],
       "curly": ["error"],
       "max-depth": ["warn", 4],
       "id-length": ["warn", { "exceptions": ["i", "j"], "min": 2 }],

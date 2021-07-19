@@ -1,28 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import * as actions from '../../actions/sort-ticket-actions';
 import styles from './Buttons.module.scss';
 
-
 const Buttons = ({ sortedTickets, THE_CHEAPEST, THE_FASTEST }) => {
   const cx = classNames.bind(styles);
-  const className1 = cx(['filter-buttons'], ['filter-buttons__active']);
-  const className2 = cx(['filter-buttons']);
+  const activeBtn = cx(['filter-buttons'], ['filter-buttons__active']);
+  const lightBtn = cx(['filter-buttons']);
 
   return (
     <>
       <button
         type="button"
-        className={sortedTickets.sort.isCheapest === true ? className1 : className2}
+        className={sortedTickets.sort.isCheapest === true ? activeBtn : lightBtn}
         onClick={THE_CHEAPEST}
       >
         Самый дешевый
       </button>
       <button
         type="button"
-        className={sortedTickets.sort.isFastest === true ? className1 : className2}
+        className={sortedTickets.sort.isFastest === true ? activeBtn : lightBtn}
         onClick={THE_FASTEST}
       >
         Самый быстрый
@@ -43,10 +42,10 @@ Buttons.defaultProps = {
   THE_CHEAPEST: () => {},
 };
 
-const mapStateToProps = (state) => {// eslint-disable-line
+function mapStateToProps(state) {
   return {
     sortedTickets: state,
   };
-};
+}
 
 export default connect(mapStateToProps, actions)(Buttons);

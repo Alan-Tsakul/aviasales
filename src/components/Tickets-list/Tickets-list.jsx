@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
 import { Spin, Alert, Result } from 'antd';
-import * as actions from '../../actions/load-tickets-actions';
+import * as actions from '../../actions/load-tickets-action';
 import TicketsItem from '../Tickets-item/Tickets-item';
 import styles from './Tickets-list.module.scss';
 import 'antd/dist/antd.css';
@@ -14,15 +14,16 @@ const TicketsList = ({
   getAllTickets,
   getSearchId,
   searchId,
-  checkboxid2,
-  checkboxid3,
-  checkboxid4,
-  checkboxid5,
+  noOne,
+  onlyOne,
+  onlyTwo,
+  onlyThree,
   isCheapest,
   isFastest,
   isFetching,
   isFetchError,
 }) => {
+  
   useEffect(() => {
     getSearchId();
   }, []);//eslint-disable-line
@@ -30,31 +31,26 @@ const TicketsList = ({
   searchId.replace(/"/g, '');
   useEffect(() => {
     getAllTickets(searchId);
-  }, [searchId]);//eslint-disable-line
+  });
 
-  checkboxid2 === true//eslint-disable-line
-    ? (filteredTickets = loadedTickets.filter(//eslint-disable-line
+  noOne === true ? (filteredTickets = loadedTickets.filter(//eslint-disable-line
         (ticket) => ticket.segments[0].stops.length === 0 && ticket.segments[1].stops.length === 0
       ))
     : filteredTickets;
-  checkboxid3 === true//eslint-disable-line
-    ? (filteredTickets = loadedTickets.filter(//eslint-disable-line
+  onlyOne === true ? (filteredTickets = loadedTickets.filter(//eslint-disable-line
         (ticket) => ticket.segments[0].stops.length === 1 && ticket.segments[1].stops.length === 1
       ))
     : filteredTickets;
-  checkboxid4 === true//eslint-disable-line
-    ? (filteredTickets = loadedTickets.filter(//eslint-disable-line
+  onlyTwo === true ? (filteredTickets = loadedTickets.filter(//eslint-disable-line
         (ticket) => ticket.segments[0].stops.length === 2 && ticket.segments[1].stops.length === 2
       ))
     : filteredTickets;
-  checkboxid5 === true//eslint-disable-line
-    ? (filteredTickets = loadedTickets.filter(//eslint-disable-line
+  onlyThree === true? (filteredTickets = loadedTickets.filter(//eslint-disable-line
         (ticket) => ticket.segments[0].stops.length === 3 && ticket.segments[1].stops.length === 3
       ))
     : filteredTickets;
 
-  isCheapest === true//eslint-disable-line
-    ? filteredTickets.sort(function (a, b) {//eslint-disable-line
+  isCheapest === true ? filteredTickets.sort(function (a, b) {//eslint-disable-line
         if (a.price > b.price) {
           return 1;
         }
@@ -66,21 +62,18 @@ const TicketsList = ({
     : filteredTickets;
 
   isFastest === true  ? filteredTickets.sort(function (a, b) {//eslint-disable-line
-        if (a.segments[0].duration + a.segments[0].duration > b.segments[0].duration + b.segments[1].duration) {
+        if (a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration) {
           return 1;
         }
-        if (a.segments[0].duration + a.segments[0].duration < b.segments[0].duration + b.segments[1].duration) {
+        if (a.segments[0].duration + a.segments[1].duration < b.segments[0].duration + b.segments[1].duration) {
           return -1;
         }
         return 0;
       })
     : filteredTickets;
 
-    function onClickButton() {
-      getAllTickets(searchId);
-    }
+    function onClickButton() {}
   
-
   const spinner = isFetching ? (
     <Spin tip="Loading...">
       <Alert />
@@ -121,15 +114,15 @@ const TicketsList = ({
   );
 };
 
-const mapStateToProps = (state) => {//eslint-disable-line
+function mapStateToProps(state) {
   return {
     loadedTickets: state.load.tickets,
     filteredTickets: state.load.filteredTickets,
     searchId: state.load.searchId,
-    checkboxid2: state.filter.checkboxid2,
-    checkboxid3: state.filter.checkboxid3,
-    checkboxid4: state.filter.checkboxid4,
-    checkboxid5: state.filter.checkboxid5,
+    noOne: state.filter.noOne,
+    onlyOne: state.filter.onlyOne,
+    onlyTwo: state.filter.onlyTwo,
+    onlyThree: state.filter.onlyThree,
     isCheapest: state.sort.isCheapest,
     isFastest: state.sort.isFastest,
     isFetching: state.load.isFetching,
@@ -141,10 +134,10 @@ TicketsList.propTypes = {
   loadedTickets: PropTypes.objectOf(PropTypes.object).isRequired,
   filteredTickets:  PropTypes.objectOf(PropTypes.object).isRequired,
   searchId: PropTypes.string.isRequired,
-  checkboxid2: PropTypes.bool.isRequired,
-  checkboxid3: PropTypes.bool.isRequired,
-  checkboxid4: PropTypes.bool.isRequired,
-  checkboxid5: PropTypes.bool.isRequired,
+  noOne: PropTypes.bool.isRequired,
+  onlyOne: PropTypes.bool.isRequired,
+  onlyTwo: PropTypes.bool.isRequired,
+  onlyThree: PropTypes.bool.isRequired,
   isCheapest: PropTypes.bool.isRequired,
   isFastest: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
